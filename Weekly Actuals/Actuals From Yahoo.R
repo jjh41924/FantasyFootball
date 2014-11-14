@@ -37,7 +37,7 @@ createActualsFiles = function(week){
   actualPoints <- rbind(yahoo1,yahoo2,yahoo3,yahoo4,yahoo5,yahoo6,yahoo7,yahoo8,yahoo9,yahoo10,yahoo11,yahoo12,yahoo13,yahoo14,yahoo15)
   
   #Variable Names
-  names(actualPoints) <- c("star","player","add","owner","pts","ownedPct","proj","actual","passYds","passTds","passInt","rushYds","rushTds","recYds","recTds","returnTDs","twoPts","fumbles","missing")
+  names(actualPoints) <- c("star","player","add","owner","pts","ownedPct","proj","actual","passYds","passTds","passInt","rushAtt","rushYds","rushTds","targets","rec","recYds","recTds","returnTDs","twoPts","fumbles")
   
   #Remove special characters(commas)
   actualPoints[,c("passYds","passTds","passInt","rushYds","rushTds","recYds","recTds","returnTDs","twoPts","fumbles","pts")] <-
@@ -55,7 +55,7 @@ createActualsFiles = function(week){
   actualPoints$team_yahoo <- toupper(str_trim(str_sub(actualPoints$player, start=str_locate(actualPoints$player, "-")[,1]-4, end=str_locate(actualPoints$player, "-")[,1]-2)))
   
   #Select variables to keep
-  actualPoints <- actualPoints[,c("name","name_yahoo","pos","team_yahoo","passYds","passTds","passInt","rushYds","rushTds","recYds","recTds","returnTDs","twoPts","fumbles","pts")]
+  actualPoints <- actualPoints[,c("name","name_yahoo","pos","team_yahoo","passYds","passTds","passInt","rushYds","rushTds","recYds","recTds","returnTDs","twoPts","fumbles","pts","targets","rec","ownedPct","rushAtt")]
   
   #Save historical actual data
   write.csv(actualPoints, file=paste("C:/MY_FF/Weekly Actuals/Yahoo-actualpoints-Week-", week, ".csv", sep=""), row.names=FALSE)
