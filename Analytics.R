@@ -1,7 +1,7 @@
 
-source("C:/MY_FF/Weekly Actuals/Actuals From Yahoo.R")
-source("C:/MY_FF/ESPN/ESPN Weekly Projections.R")
-source("C:/MY_FF/FantasyFootballUtilities.R")
+source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
+source(paste(getMYFFDir(),"/ESPN/ESPN Weekly Projections.R",sep=""))
+source("C:/My_GIT_DIR/FantasyFootballUtilities.R")
 
 actuals = getActualsFromFile(3)
 projections = getESPN_Projections(3)

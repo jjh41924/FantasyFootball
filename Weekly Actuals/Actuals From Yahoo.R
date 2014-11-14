@@ -61,7 +61,7 @@ createActualsFiles = function(week){
   write.csv(actualPoints, file=paste("C:/MY_FF/Weekly Actuals/Yahoo-actualpoints-Week-", week, ".csv", sep=""), row.names=FALSE)
 }
 getActualsFromFile = function(week){
-  return(read.table(file=paste("C:/MY_FF/Weekly Actuals/Yahoo-actualpoints-Week-", week, ".csv", sep=""), sep=",",header=TRUE))
+  return(read.table(file=paste(getMYFFDir(),"/Weekly Actuals/Yahoo-actualpoints-Week-", week, ".csv", sep=""), sep=",",header=TRUE))
 }
 # 
 # #####################

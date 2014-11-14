@@ -11,6 +11,8 @@ getProjections = function(prefix){
   return(read.table(file,sep=",",header = TRUE))
 }
 
+getMYFFDir = function() { return( "C:/My_GIT_DIR") }
+setwd("C:/GIT_FF") 
 
 my.players = as.data.frame(matrix(ncol=2,nrow=13))
 colnames(my.players) = c("NAME","POS")
