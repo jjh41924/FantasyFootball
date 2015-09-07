@@ -1,8 +1,4 @@
 source("C:/My_GIT_DIR/FantasyFootballUtilities.R")
-source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
-source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/ESPN Weekly Projections.R",sep=""))
-source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/NFL Weekly Projections.R",sep=""))
-source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/Yahoo Weekly Projections.R",sep=""))
 
 
 actuals = getActualsFromFile(3)
@@ -33,3 +29,5 @@ my.actuals$rushTds - my.projections$rushTds_espn
 my.actuals$recYds - my.projections$recYds_espn
 my.actuals$recTds - my.projections$recTds_espn
 colnames(my.actuals)
+
+

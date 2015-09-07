@@ -132,7 +132,10 @@ setPointsForWeek_nfl = function(week){
 }
 
 getNFL_Projections = function(week){
-  return(getProjections(paste(getMYFFDir(),"/Weekly Forecast/NFL/Projections_Week_",week,"_Date_",sep="")));
+  ret = getProjections(paste(getMYFFDir(),"/Weekly Forecast/NFL/Projections_Week_",week,"_Date_",sep=""))
+  ret$source = "NFL"
+  ret$week = week
+  return(ret)
   #write.csv(file=paste("C:/MY_FF/Weekly Forecast/ESPN/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
 }
 

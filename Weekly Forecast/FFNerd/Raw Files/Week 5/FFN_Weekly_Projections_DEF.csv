@@ -1,0 +1,31 @@
+displayName,defSack,defInt,defFF,defFR,defTD,defRetTD,defSafety,defPA,defYdsAllowed
+Seattle Seahawks,4.0,1.0,0.0,0.0,1.0,0.0,0.0,6.0,374.0
+Detroit Lions,4.0,1.0,0.0,0.0,0.0,0.0,0.0,13.0,374.0
+Denver Broncos,3.0,2.0,0.0,0.0,0.0,0.0,0.0,16.0,359.0
+Cleveland Browns,1.0,1.0,0.0,0.0,0.0,0.0,0.0,17.0,330.0
+San Diego Chargers,2.0,1.0,2.0,2.0,0.0,0.0,0.0,17.0,365.0
+Tennessee Titans,2.0,0.0,0.0,0.0,0.0,0.0,0.0,18.0,349.0
+Pittsburgh Steelers,1.0,1.0,0.0,1.0,0.0,0.0,0.0,18.0,355.0
+Chicago Bears,2.0,1.0,0.0,0.0,0.0,0.0,0.0,18.0,319.0
+Dallas Cowboys,1.0,1.0,0.0,0.0,0.0,0.0,0.0,19.0,344.0
+Green Bay Packers,4.0,1.0,0.0,0.0,0.0,0.0,0.0,20.0,323.0
+New York Giants,4.0,1.0,0.0,0.0,0.0,0.0,0.0,20.0,433.0
+San Francisco 49ers,4.0,1.0,1.0,1.0,0.0,0.0,0.0,20.0,369.0
+New Orleans Saints,3.0,1.0,0.0,0.0,0.0,0.0,0.0,20.0,332.0
+Cincinnati Bengals,5.0,1.0,0.0,0.0,0.0,0.0,0.0,20.0,371.0
+Carolina Panthers,3.0,1.0,0.0,0.0,0.0,0.0,0.0,22.0,459.0
+Buffalo Bills,3.0,0.0,0.0,0.0,0.0,0.0,0.0,22.0,396.0
+New England Patriots,2.0,1.0,0.0,0.0,0.0,0.0,0.0,22.0,389.0
+Philadelphia Eagles,2.0,1.0,1.0,0.0,0.0,0.0,0.0,23.0,368.0
+Indianapolis Colts,2.0,1.0,0.0,0.0,0.0,0.0,0.0,24.0,440.0
+Tampa Bay Buccaneers,2.0,0.0,1.0,1.0,0.0,0.0,0.0,26.0,461.0
+Baltimore Ravens,3.0,1.0,0.0,0.0,0.0,0.0,0.0,26.0,480.0
+St. Louis Rams,4.0,1.0,0.0,0.0,0.0,0.0,0.0,26.0,404.0
+New York Jets,3.0,1.0,0.0,0.0,0.0,0.0,0.0,28.0,351.0
+Washington Redskins,2.0,0.0,0.0,0.0,0.0,0.0,0.0,29.0,394.0
+Arizona Cardinals,2.0,1.0,0.0,0.0,0.0,0.0,0.0,31.0,373.0
+Atlanta Falcons,2.0,0.0,0.0,0.0,0.0,0.0,0.0,31.0,398.0
+Kansas City Chiefs,3.0,1.0,0.0,0.0,0.0,0.0,0.0,31.0,360.0
+Jacksonville Jaguars,3.0,0.0,0.0,0.0,0.0,0.0,0.0,31.0,468.0
+Houston Texans,3.0,0.0,1.0,0.0,0.0,0.0,0.0,32.0,394.0
+Minnesota Vikings,3.0,0.0,0.0,0.0,0.0,0.0,0.0,36.0,387.0

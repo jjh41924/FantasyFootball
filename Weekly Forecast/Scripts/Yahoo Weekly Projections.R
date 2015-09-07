@@ -27,9 +27,10 @@ setPointsForWeek_yahoo = function(week){
   projections_yahoo = NULL
   for(i in 0:14) {
     if(i==0){
-      projections_yahoo = readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_W_",week,"&myteam=0&sort=PTS&sdir=1&count=0",sep=""), stringsAsFactors = FALSE)[2]$'NULL'
+      #remove the PW and replace with W for actuals
+      projections_yahoo = readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=0",sep=""), stringsAsFactors = FALSE)[2]$'NULL'
     } else {
-      projections_yahoo = rbind(projections_yahoo,readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_W_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep=""), stringsAsFactors = FALSE)[2]$'NULL')
+      projections_yahoo = rbind(projections_yahoo,readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep=""), stringsAsFactors = FALSE)[2]$'NULL')
     }
   }
   
@@ -91,7 +92,10 @@ setPointsForWeek_yahoo = function(week){
 }
 
 getYahoo_Projections = function(week){
-  return(getProjections(paste(getMYFFDir(),"/Weekly Forecast/Yahoo/Projections_Week_",week,"_Date_",sep="")));
+  ret = getProjections(paste(getMYFFDir(),"/Weekly Forecast/Yahoo/Projections_Week_",week,"_Date_",sep=""))
+  ret$source = "Yahoo"
+  ret$week = week
+  return(ret)
   #write.csv(file=paste("C:/MY_FF/Weekly Forecast/ESPN/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
 }
 

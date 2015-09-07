@@ -1,8 +1,23 @@
+getMYFFDir = function() { return( "C:/My_GIT_DIR") }
+setwd("C:/GIT_FF") 
+
+source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/ESPN Weekly Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/NFL Weekly Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/Yahoo Weekly Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/FOX Weekly Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/FFtoday Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/CBS Projections.R",sep=""))
+source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/FantasyFootballNerd Projections.R",sep=""))
+source(paste(getMYFFDir(),"/League Information/ESPN.R",sep=""))
+
+
 getProjections = function(prefix){
   sp = strsplit(prefix, "/")[[1]]
   last = sp[length(sp)]
   directory = substring(prefix,1,nchar(prefix)-nchar(last))
   files = list.files(directory, pattern="*.csv", full.names=TRUE)
+  files = files[grepl(prefix,files)]
   dates = rep(Sys.time(),length(files))
   for(i in 1:length(files)) {
     dates[i] = strptime(substring(files[i], nchar(files[i])-13,nchar(files[i])-4),"%Y_%m_%d")
@@ -11,8 +26,98 @@ getProjections = function(prefix){
   return(read.table(file,sep=",",header = TRUE))
 }
 
-getMYFFDir = function() { return( "C:/My_GIT_DIR") }
-setwd("C:/GIT_FF") 
+setAllProjections = function(){
+  for(i in 17:17){
+    setPointsForWeek_FFtoday(i)
+    setPointsForWeek_espn(i)
+    setPointsForWeek_nfl(i)
+    setPointsForWeek_yahoo(i)
+    setPointsForWeek_cbs(i,FALSE)
+    setPointsForWeek_cbs(i,TRUE)
+  }
+  #setPointsForCurrentWeek_fox(i)
+}
+
+getAllActualData = function(){
+  ret = genericHeadings(getActualsFromFile(1))
+  for(i in 2:16){
+    ret = rbind(ret,genericHeadings(getActualsFromFile(i)))
+  }
+  return(ret)
+}
+filterByPositionAndStatistic = function(data,pos,stat){
+  ret = data[,c("name_lookup","pos","team","source","week","positionRank",stat)]
+  return(ret[ret$pos==pos,])
+}
+getAllProjectionData = function() {
+  ret = getAllProjectionsForAGivenWeek(1)
+  for(i in 2:16){
+    ret = rbind(ret,getAllProjectionsForAGivenWeek(i))
+  }
+  return(ret)
+}
+getAllProjectionsForAGivenWeek = function(week){
+  fft = genericHeadings(getFFtoday_Projections(week))
+  cbsd = genericHeadings(getCBS_Projections(week,TRUE))
+  cbsj = genericHeadings(getCBS_Projections(week,FALSE))
+  espn = genericHeadings(getESPN_Projections(week))
+  nfl = genericHeadings(getNFL_Projections(week))
+  yahoo = genericHeadings(getYahoo_Projections(week))
+  ffn = genericHeadings(getFFNerd_Projections(week))
+  #fox = getFOX_Projections(i)
+  a = rbind.fill(fft,cbsd,cbsj,espn,nfl,yahoo,ffn)
+  return(a)
+}
+getAllProjectionsForAGivenStat = function(stat,pos,all = FALSE){
+  ret = getAllProjectionsForAGivenWeekAndStat(1,stat,pos,all)
+  for(i in 2:16){
+    ret = rbind.fill(ret,getAllProjectionsForAGivenWeekAndStat(i,stat,pos,all))
+  }
+  return(ret)
+}
+getAllProjectionsForAGivenWeekAndStat = function(week,stat,pos,all = FALSE){
+  fft = filterByPositionAndStatistic(genericHeadings(getFFtoday_Projections(week)),pos,stat)
+  cbsd = filterByPositionAndStatistic(genericHeadings(getCBS_Projections(week,TRUE)),pos,stat)
+  cbsj = filterByPositionAndStatistic(genericHeadings(getCBS_Projections(week,FALSE)),pos,stat)
+  espn = filterByPositionAndStatistic(genericHeadings(getESPN_Projections(week)),pos,stat)
+  nfl = filterByPositionAndStatistic(genericHeadings(getNFL_Projections(week)),pos,stat)
+  yahoo = filterByPositionAndStatistic(genericHeadings(getYahoo_Projections(week)),pos,stat)
+  ffn = filterByPositionAndStatistic(genericHeadings(getFFNerd_Projections(week)),pos,stat)
+  #fox = getFOX_Projections(i)
+  colnames(fft)[7] = "fft"
+  colnames(cbsd)[7] = "cbsd"
+  colnames(cbsj)[7] = "cbsj"
+  colnames(espn)[7] = "espn"
+  colnames(nfl)[7] = "nfl"
+  colnames(yahoo)[7] = "yahoo"
+  colnames(ffn)[7] = "ffn"
+  
+  colnames(fft)[6] = "rank.fft"
+  colnames(cbsd)[6] = "rank.cbsd"
+  colnames(cbsj)[6] = "rank.cbsj"
+  colnames(espn)[6] = "rank.espn"
+  colnames(nfl)[6] = "rank.nfl"
+  colnames(yahoo)[6] = "rank.yahoo"
+  colnames(ffn)[6] = "rank.ffn"
+  ret = merge(fft,cbsd[,c("name_lookup","week","rank.cbsd","cbsd")],   c("name_lookup","week"),all = all)
+  ret = merge(ret,cbsj[,c("name_lookup","week","rank.cbsj","cbsj")],   c("name_lookup","week"),all = all)
+  ret = merge(ret,espn[,c("name_lookup","week","rank.espn","espn")],   c("name_lookup","week"),all = all)
+  ret = merge(ret,nfl[,c("name_lookup","week","rank.nfl","nfl")],     c("name_lookup","week"),all = all)
+  ret = merge(ret,yahoo[,c("name_lookup","week","rank.yahoo","yahoo")], c("name_lookup","week"),all = all)
+  ret = merge(ret,ffn[,c("name_lookup","week","rank.ffn","ffn")],     c("name_lookup","week"),all = all)
+  return(ret)
+}
+genericHeadings = function(d){
+  c = colnames(d)[3:ncol(d)]
+  #print(colnames(d))
+  for(i in 1:length(c)){
+    if(grepl("_",c[i])){
+      c[i] = substring(c[i],1,gregexpr("_",c[i])[[1]][1]-1)
+    }
+  }
+  colnames(d) = c("name_lookup","pos",c)
+  return(d)
+}
 
 my.players = as.data.frame(matrix(ncol=2,nrow=13))
 colnames(my.players) = c("NAME","POS")
