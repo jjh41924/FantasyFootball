@@ -41,7 +41,7 @@ getAllActualData = function(){
   ret = genericHeadings(getActualsFromFile(1))
   for(i in 2:16){
     ret = rbind(ret,genericHeadings(getActualsFromFile(i)))
-  }
+  } 
   return(ret)
 }
 filterByPositionAndStatistic = function(data,pos,stat){
