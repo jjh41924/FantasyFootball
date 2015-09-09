@@ -23,17 +23,17 @@ setPointsForWeek_FFtoday = function(week){
   suffix <- "fftoday"
   
   #Download fantasy football projections from FFtoday.com
-  qb1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=10&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  qb2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=10&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  rb1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=20&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  rb2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=20&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  wr1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=30&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  wr2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=30&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  wr3_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=30&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=2",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  te1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=40&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
-  te2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=40&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  qb1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=10&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  qb2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=10&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  rb1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=20&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  rb2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=20&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  wr1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=30&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  wr2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=30&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  wr3_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=30&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=2",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  te1_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=40&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  te2_fftoday <- readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=40&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
   
-  k1_fftoday  =  readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=",format(Sys.time(),"%Y"),"&GameWeek=",week,"&PosID=80&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
+  k1_fftoday  =  readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=80&LeagueID=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
   #k2_fftoday  =  readHTMLTable(paste("http://www.fftoday.com/rankings/playerwkproj.php?Season=2014&GameWeek=",week,"&PosID=80&LeagueID=1&order_by=FFPts&sort_order=DESC&cur_page=1",sep=""), stringsAsFactors = FALSE)[11]$'NULL'
   
   #Add variable names for each object

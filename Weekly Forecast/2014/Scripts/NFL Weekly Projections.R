@@ -23,24 +23,24 @@ setPointsForWeek_nfl = function(week){
   source(paste(getwd(),"/R Scripts/Functions/League Settings.R", sep=""))
   
   #Download fantasy football projections from NFL.com
-  qb1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=1&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  qb2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=1&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb3_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=51&position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb4_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=76&position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb5_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=101&position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  rb6_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=126&position=2&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  qb1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=1&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  qb2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=1&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb3_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=51&position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb4_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=76&position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb5_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=101&position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  rb6_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=126&position=2&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
   
-  wr1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  wr2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  wr3_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=51&position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  wr4_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=76&position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  wr5_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=101&position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  wr6_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=126&position=3&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr3_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=51&position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr4_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=76&position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr5_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=101&position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  wr6_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=126&position=3&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
   
-  te1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=4&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
-  te2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=4&statCategory=projectedStats&statSeason=",format(Sys.time(),"%Y"),"&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  te1_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?position=4&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
+  te2_nfl <- readHTMLTable(paste("http://fantasy.nfl.com/research/projections?offset=26&position=4&statCategory=projectedStats&statSeason=2014&statType=weekProjectedStats&statWeek=",week,sep=""), stringsAsFactors = FALSE)$`NULL`
   
   #Add variable names for each object
   fileList <- c("qb1_nfl","qb2_nfl","rb1_nfl","rb2_nfl","rb3_nfl","rb4_nfl","rb5_nfl","rb6_nfl","wr1_nfl","wr2_nfl","wr3_nfl","wr4_nfl","wr5_nfl","wr6_nfl","te1_nfl","te2_nfl")

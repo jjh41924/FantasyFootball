@@ -22,26 +22,24 @@ setPointsForWeek_espn = function(week){
   suffix <- "espn"
   
   #Download fantasy football projections from ESPN.com
-  qb_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=0&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  rb1_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  rb2_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=40",sep=""), stringsAsFactors = FALSE)$playertable_0
-  rb3_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=80",sep=""), stringsAsFactors = FALSE)$playertable_0
-  wr1_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  wr2_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=40",sep=""), stringsAsFactors = FALSE)$playertable_0
-  wr3_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=80",sep=""), stringsAsFactors = FALSE)$playertable_0
-  te_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=6&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  #d_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=16&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  #k_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=17&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
+  qb_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=0&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
+  rb1_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
+  rb2_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=2014&startIndex=40",sep=""), stringsAsFactors = FALSE)$playertable_0
+  rb3_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=2&scoringPeriodId=",week,"&seasonId=2014&startIndex=80",sep=""), stringsAsFactors = FALSE)$playertable_0
+  wr1_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
+  wr2_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=2014&startIndex=40",sep=""), stringsAsFactors = FALSE)$playertable_0
+  wr3_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=2014&startIndex=80",sep=""), stringsAsFactors = FALSE)$playertable_0
+  te_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=6&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
+  d_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=16&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
+  k_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=17&scoringPeriodId=",week,"&seasonId=2014",sep=""), stringsAsFactors = FALSE)$playertable_0
   
   #Add variable names for each object
   fileList <- c("qb_espn","rb1_espn","rb2_espn","rb3_espn","wr1_espn","wr2_espn","wr3_espn","te_espn")#,"d_espn","k_espn")
-  sapply(fileList,function(X){dim(get(X))})
   
   for(i in 1:length(fileList)){
     assign(fileList[i],get(fileList[i])[2:dim(get(fileList[i]))[1],])
     t <- get(fileList[i])
-    rename.cols = c("player_espn","opposint_team","Status","passCompAtt_espn","passYds_espn","passTds_espn","passInt_espn","rushAtt_espn","rushYds_espn","rushTds_espn","rec_espn","recYds_espn","recTds_espn","pts_espn")
-    names(t) <- rename.cols
+    names(t) <-  c("player_espn","opposint_team","Status","passCompAtt_espn","passYds_espn","passTds_espn","passInt_espn","rushAtt_espn","rushYds_espn","rushTds_espn","rec_espn","recYds_espn","recTds_espn","pts_espn")
     assign(fileList[i], t)
   }
   

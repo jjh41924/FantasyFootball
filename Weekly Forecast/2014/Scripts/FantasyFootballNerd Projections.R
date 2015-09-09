@@ -14,7 +14,6 @@ source(paste(getwd(),"/R Scripts/Functions/League Settings.R", sep=""))
 
 getFile = function(week,pos){
   filename = paste("C:/My_GIT_DIR/Weekly Forecast/FFNerd/Raw Files/Week ",week,"/FFN_Weekly_Projections_",pos,".csv",sep="")
-  print(filename)
   cleanFile(filename)
   return(read.table(filename,header=TRUE,sep=","))
 }

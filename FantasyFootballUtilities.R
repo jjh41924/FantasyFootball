@@ -28,12 +28,11 @@ getProjections = function(prefix){
 
 setAllProjections = function(){
   for(i in 17:17){
-    setPointsForWeek_FFtoday(i)
+    #setPointsForWeek_FFtoday(i)#
     setPointsForWeek_espn(i)
     setPointsForWeek_nfl(i)
     setPointsForWeek_yahoo(i)
-    setPointsForWeek_cbs(i,FALSE)
-    setPointsForWeek_cbs(i,TRUE)
+    setPointsForWeek_cbs(i)
   }
   #setPointsForCurrentWeek_fox(i)
 }

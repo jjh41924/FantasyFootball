@@ -18,16 +18,19 @@ source(paste(getwd(),"/R Scripts/Functions/Functions.R", sep=""))
 source(paste(getwd(),"/R Scripts/Functions/League Settings.R", sep=""))
 
 
-setPointsForWeek_cbs = function(week){#, isDave = FALSE
-  #the.clarvoiant = "jamey_eisenberg"
-  #if(isDave) { the.clarvoiant = "dave_richard" }
+setPointsForWeek_cbs = function(week, isDave = FALSE){
+  the.clarvoiant = "jamey_eisenberg"
+  if(isDave) { the.clarvoiant = "dave_richard" }
   
   
   #Download fantasy football projections from cbssports.com
-  qb_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/QB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  rb1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/RB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  wr1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/WR/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  te_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/TE/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
+  #                              http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/QB/1       /jamey_eisenberg/standard?&print_rows=9999
+  qb_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/QB/",week,"/",the.clarvoiant,"/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
+  rb1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/RB/",week,"/",the.clarvoiant,"/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
+  #rb2_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/RB/season?&start_row=51", stringsAsFactors = FALSE)[7]$'NULL'
+  wr1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/WR/",week,"/",the.clarvoiant,"/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
+  #wr2_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/WR/season?&start_row=51", stringsAsFactors = FALSE)[7]$'NULL'
+  te_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/TE/",week,"/",the.clarvoiant,"/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
   
   #Add variable names for each object
   names(qb_cbs) <- c("player_cbs","passAtt_cbs","passComp_cbs","passYds_cbs","passTds_cbs","passInt_cbs","passCompPct_cbs","passYdsPerAtt_cbs","rushAtt_cbs","rushYds_cbs","rushYdsPerAtt_cbs","rushTds_cbs","fumbles_cbs","pts_cbs")
@@ -103,10 +106,10 @@ setPointsForWeek_cbs = function(week){#, isDave = FALSE
   row.names(projections_cbs) <- 1:dim(projections_cbs)[1]
   
   #Save file  
-  #folder = "CBS_Jamey"
-  #if(isDave) { folder = "CBS_Dave" }
-  save(projections_cbs, file = paste(getMYFFDir(),"/Weekly Forecast/CBS/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
-  write.csv(projections_cbs, file=paste(getMYFFDir(),"/Weekly Forecast/CBS/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  folder = "CBS_Jamey"
+  if(isDave) { folder = "CBS_Dave" }
+  save(projections_cbs, file = paste(getMYFFDir(),"/Weekly Forecast/",folder,"/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
+  write.csv(projections_cbs, file=paste(getMYFFDir(),"/Weekly Forecast/",folder,"/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
 }
 
 getCBS_Dave_Projections = function(week){

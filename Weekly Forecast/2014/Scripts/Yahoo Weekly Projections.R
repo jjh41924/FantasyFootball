@@ -26,20 +26,17 @@ setPointsForWeek_yahoo = function(week){
   #Download fantasy football projections from Yahoo.com
   projections_yahoo = NULL
   for(i in 0:14) {
-    #2014#html = paste("http://football.fantasysports.yahoo.com/f1/288510/players?status=A&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep="")
-    html = paste("http://football.fantasysports.yahoo.com/f1/288510/players?status=ALL&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep="")#They Changed
     if(i==0){
       #remove the PW and replace with W for actuals
-      projections_yahoo = readHTMLTable(html, stringsAsFactors = FALSE)[3]$'NULL'
+      projections_yahoo = readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=0",sep=""), stringsAsFactors = FALSE)[2]$'NULL'
     } else {
-      projections_yahoo = rbind(projections_yahoo,readHTMLTable(html, stringsAsFactors = FALSE)[3]$'NULL')
+      projections_yahoo = rbind(projections_yahoo,readHTMLTable(paste("http://football.fantasysports.yahoo.com/f1/39345/players?status=A&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep=""), stringsAsFactors = FALSE)[2]$'NULL')
     }
   }
   
   #Variable Names
-  rename.cols =  c("star","player","add","owner","GP","pts_yahoo","ownedPct","proj","actual",
-                   "passYds_yahoo","passTds_yahoo","passInt_yahoo","rushAtt_yahoo","rushYds_yahoo","rushTds_yahoo","passAtt_yahoo","rec_yahoo","recYds_yahoo","recTds_yahoo","returnTds_yahoo","twoPts_yahoo","fumbles_yahoo","missing")
-  names(projections_yahoo) <-rename.cols
+  names(projections_yahoo) <- c("star","player","add","owner","pts_yahoo","ownedPct","proj","actual",
+                                "passYds_yahoo","passTds_yahoo","passInt_yahoo","rushAtt_yahoo","rushYds_yahoo","rushTds_yahoo","passAtt_yahoo","rec_yahoo","recYds_yahoo","recTds_yahoo","returnTds_yahoo","twoPts_yahoo","fumbles_yahoo","missing")
   
   #Add missing variables
   projections_yahoo$passComp_yahoo <- NA
