@@ -134,6 +134,7 @@ setPointsForWeek_FFtoday = function(week){
  
   save(k_fftoday, file = paste(getMYFFDir(),"/Weekly Forecast/FFtoday/Kicker_Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
   write.csv(k_fftoday, file=paste(getMYFFDir(),"/Weekly Forecast/FFtoday/Kicker_Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+ cat(paste("[FFToday] DONE. week[",week,"]\n",sep=,""))
 }
 
 getFFtoday_Projections = function(week){

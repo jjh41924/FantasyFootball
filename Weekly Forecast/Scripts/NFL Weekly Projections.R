@@ -129,10 +129,15 @@ setPointsForWeek_nfl = function(week){
   #Save file  
   save(projections_nfl, file = paste(getMYFFDir(),"/Weekly Forecast/NFL/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
   write.csv(projections_nfl, file=paste(getMYFFDir(),"/Weekly Forecast/NFL/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  
+  cat(paste("[NFL] DONE. week[",week,"]\n",sep=,""))
 }
 
 getNFL_Projections = function(week){
   ret = getProjections(paste(getMYFFDir(),"/Weekly Forecast/NFL/Projections_Week_",week,"_Date_",sep=""))
+  if(sum(grepl(" ",ret$team_nfl)) >0) {
+    ret[grepl(" ",ret$team_nfl),]$team_nfl = sapply(as.character(ret[grepl(" ",ret$team_nfl),]$team_nfl),function(X) { return(str_split(X," ")[[1]][1]) })
+  }
   ret$source = "NFL"
   ret$week = week
   return(ret)

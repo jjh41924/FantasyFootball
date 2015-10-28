@@ -2,7 +2,6 @@
 # File: CBS Projections.R
 # Description: Downloads Fantasy Football Projections from cbssports.com
 # Date: 3/3/2013
-# Author: Isaac Petersen (isaac@fantasyfootballanalytics.net)
 # Notes:
 # To do:
 ###########################
@@ -24,10 +23,10 @@ setPointsForWeek_cbs = function(week){#, isDave = FALSE
   
   
   #Download fantasy football projections from cbssports.com
-  qb_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/QB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  rb1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/RB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  wr1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/WR/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
-  te_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/TE/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)[7]$'NULL'
+  qb_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/QB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)$'NULL'#[7]
+  rb1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/RB/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)$'NULL'#[7]
+  wr1_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/WR/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)$'NULL'#[7]
+  te_cbs <- readHTMLTable(paste("http://fantasynews.cbssports.com/fantasyfootball/stats/weeklyprojections/TE/",week,"/avg/standard?&print_rows=9999",sep=""), stringsAsFactors = FALSE)$'NULL'#[7]
   
   #Add variable names for each object
   names(qb_cbs) <- c("player_cbs","passAtt_cbs","passComp_cbs","passYds_cbs","passTds_cbs","passInt_cbs","passCompPct_cbs","passYdsPerAtt_cbs","rushAtt_cbs","rushYds_cbs","rushYdsPerAtt_cbs","rushTds_cbs","fumbles_cbs","pts_cbs")
@@ -107,21 +106,23 @@ setPointsForWeek_cbs = function(week){#, isDave = FALSE
   #if(isDave) { folder = "CBS_Dave" }
   save(projections_cbs, file = paste(getMYFFDir(),"/Weekly Forecast/CBS/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
   write.csv(projections_cbs, file=paste(getMYFFDir(),"/Weekly Forecast/CBS/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  
+  cat(paste("[CBS] DONE. week[",week,"]"))
 }
 
-getCBS_Dave_Projections = function(week){
-  return(getCBS_Projections(week,TRUE))
-}
+# getCBS_Dave_Projections = function(week){
+#   return(getCBS_Projections(week,TRUE))
+# }
+# 
+# getCBS_Jamey_Projections = function(week){
+#   return(getCBS_Projections(week,FALSE))
+# }
 
-getCBS_Jamey_Projections = function(week){
-  return(getCBS_Projections(week,FALSE))
-}
-
-getCBS_Projections = function(week,isDave=FALSE){
-  folder = "CBS_Jamey"
-  if(isDave) { folder = "CBS_Dave" }
-  ret = getProjections(paste(getMYFFDir(),"/Weekly Forecast/",folder,"/Projections_Week_",week,"_Date_",sep=""))
-  ret$source = folder
+getCBS_Projections = function(week){#,isDave=FALSE
+#   folder = "CBS_Jamey"
+#   if(isDave) { folder = "CBS_Dave" }
+  ret = getProjections(paste(getMYFFDir(),"/Weekly Forecast/CBS/Projections_Week_",week,"_Date_",sep=""))
+  ret$source = "CBS"
   ret$week = week
   ret = ret[,c(1,3,2,4:ncol(ret))]
   return(ret)

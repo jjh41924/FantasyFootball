@@ -2,7 +2,6 @@
 # File: ESPN Projections.R
 # Description: Downloads Fantasy Football Projections from ESPN.com
 # Date: 3/3/2013
-# Author: Isaac Petersen (isaac@fantasyfootballanalytics.net)
 # Notes:
 # -ESPN projections do not include fumbles!
 # To do:
@@ -30,11 +29,11 @@ setPointsForWeek_espn = function(week){
   wr2_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=40",sep=""), stringsAsFactors = FALSE)$playertable_0
   wr3_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=4&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),"&startIndex=80",sep=""), stringsAsFactors = FALSE)$playertable_0
   te_espn <- readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=6&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  #d_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=16&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
-  #k_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=17&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
+  d_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=16&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
+  k_espn = readHTMLTable(paste("http://games.espn.go.com/ffl/tools/projections?&slotCategoryId=17&scoringPeriodId=",week,"&seasonId=",format(Sys.time(),"%Y"),sep=""), stringsAsFactors = FALSE)$playertable_0
   
   #Add variable names for each object
-  fileList <- c("qb_espn","rb1_espn","rb2_espn","rb3_espn","wr1_espn","wr2_espn","wr3_espn","te_espn")#,"d_espn","k_espn")
+  fileList <- c("qb_espn","rb1_espn","rb2_espn","rb3_espn","wr1_espn","wr2_espn","wr3_espn","te_espn","d_espn","k_espn")
   sapply(fileList,function(X){dim(get(X))})
   
   for(i in 1:length(fileList)){
@@ -137,6 +136,8 @@ setPointsForWeek_espn = function(week){
   #Save file  
   save(projections_espn, file = paste(getMYFFDir(),"/Weekly Forecast/ESPN/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
   write.csv(projections_espn, file=paste(getMYFFDir(),"/Weekly Forecast/ESPN/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  
+  cat(paste("[ESPN] DONE. week[",week,"]\n",sep=""))
 }
 
 getESPN_Projections = function(week){

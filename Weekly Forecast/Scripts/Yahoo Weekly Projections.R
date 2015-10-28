@@ -30,9 +30,9 @@ setPointsForWeek_yahoo = function(week){
     html = paste("http://football.fantasysports.yahoo.com/f1/288510/players?status=ALL&pos=O&cut_type=9&stat1=S_PW_",week,"&myteam=0&sort=PTS&sdir=1&count=",(25*i),sep="")#They Changed
     if(i==0){
       #remove the PW and replace with W for actuals
-      projections_yahoo = readHTMLTable(html, stringsAsFactors = FALSE)[3]$'NULL'
+      projections_yahoo = readHTMLTable(html, stringsAsFactors = FALSE)[2]$'NULL'
     } else {
-      projections_yahoo = rbind(projections_yahoo,readHTMLTable(html, stringsAsFactors = FALSE)[3]$'NULL')
+      projections_yahoo = rbind(projections_yahoo,readHTMLTable(html, stringsAsFactors = FALSE)[2]$'NULL')
     }
   }
   
@@ -92,6 +92,8 @@ setPointsForWeek_yahoo = function(week){
   #Save file  
   save(projections_yahoo, file = paste(getMYFFDir(),"/Weekly Forecast/Yahoo/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
   write.csv(projections_yahoo, file=paste(getMYFFDir(),"/Weekly Forecast/Yahoo/Projections_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  
+  cat(paste("[Yahoo] DONE. week[",week,"]\n",sep=,""))
 }
 
 getYahoo_Projections = function(week){

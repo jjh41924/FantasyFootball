@@ -1,7 +1,7 @@
 getMYFFDir = function() { return( "C:/My_GIT_DIR") }
 setwd("C:/GIT_FF") 
 
-source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
+# source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/ESPN Weekly Projections.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/NFL Weekly Projections.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/Yahoo Weekly Projections.R",sep=""))
@@ -26,8 +26,8 @@ getProjections = function(prefix){
   return(read.table(file,sep=",",header = TRUE))
 }
 
-setAllProjections = function(){
-  for(i in 17:17){
+setAllProjections.weeks.1.to.17 = function(){
+  for(i in 1:17){
     #setPointsForWeek_FFtoday(i)#
     setPointsForWeek_espn(i)
     setPointsForWeek_nfl(i)
@@ -35,6 +35,15 @@ setAllProjections = function(){
     setPointsForWeek_cbs(i)
   }
   #setPointsForCurrentWeek_fox(i)
+}
+
+setWeeklyProjections = function(week) {
+  setPointsForWeek_espn(week)
+  setPointsForWeek_nfl(week)
+  setPointsForWeek_yahoo(week)
+  setPointsForWeek_cbs(week)
+  cat(paste("[SetWeeklyProjections] DONE. week[",week,"]\n"))
+  cat("[SetWeeklyProjections] REMEMBER: to download projections from FFNerds.  Do so Here [http://www.fantasyfootballnerd.com/weekly-fantasy-football-projections]\n")
 }
 
 getAllActualData = function(){
@@ -48,25 +57,70 @@ filterByPositionAndStatistic = function(data,pos,stat){
   ret = data[,c("name_lookup","pos","team","source","week","positionRank",stat)]
   return(ret[ret$pos==pos,])
 }
-getAllProjectionData = function() {
-  ret = getAllProjectionsForAGivenWeek(1)
-  for(i in 2:16){
-    ret = rbind(ret,getAllProjectionsForAGivenWeek(i))
-  }
-  return(ret)
-}
+# getAllProjectionData = function() {
+#   ret = getAllProjectionsForAGivenWeek(1)
+#   for(i in 2:16){
+#     ret = rbind(ret,getAllProjectionsForAGivenWeek(i))
+#   }
+#   return(ret)
+# }
 getAllProjectionsForAGivenWeek = function(week){
-  fft = genericHeadings(getFFtoday_Projections(week))
-  cbsd = genericHeadings(getCBS_Projections(week,TRUE))
-  cbsj = genericHeadings(getCBS_Projections(week,FALSE))
+#   fft = genericHeadings(getFFtoday_Projections(week))
+  cbs = genericHeadings(getCBS_Projections(week))
   espn = genericHeadings(getESPN_Projections(week))
   nfl = genericHeadings(getNFL_Projections(week))
   yahoo = genericHeadings(getYahoo_Projections(week))
   ffn = genericHeadings(getFFNerd_Projections(week))
   #fox = getFOX_Projections(i)
-  a = rbind.fill(fft,cbsd,cbsj,espn,nfl,yahoo,ffn)
+  a = rbind.fill(cbs,espn,nfl,yahoo,ffn)#fft,
   return(a)
 }
+getAverageProjectionsForAGivenWeek = function(week,FUN=NA){
+  if(missing(FUN)) { FUN=FF.stat.median }
+  #   fft = genericHeadings(getFFtoday_Projections(week))
+  proj = getAllProjectionsForAGivenWeek(week)
+  table(table(proj$name_lookup,proj$source))
+  table(proj$source)
+  all.proj[grepl(" ",all.proj$team),]
+  ret = ddply(.data=proj,.(proj$name_lookup,proj$pos,proj$team),.fun = function(X) {  
+      ret.sub = c(as.character(X$name[1])  #as.character(X$name_lookup[1]), as.character(X$pos[1]), as.character(X$team[1]), 
+        , FUN(X$positionRank), FUN(X$overallRank), FUN(X$passAtt)
+        , FUN(X$passComp),FUN(X$passYds), FUN(X$passTds),FUN(X$passInt), FUN(X$passCompPct), FUN(X$passYdsPerAtt), FUN(X$rushAtt)
+        , FUN(X$rushYds),FUN(X$rushYdsPerAtt),FUN(X$rushTds),FUN(X$rec),FUN(X$recYds),FUN(X$recYdsPerRec),FUN(X$recTds)
+        , FUN(X$twoPts),FUN(X$fumbles),NA, paste(as.character(substitute(FUN)),"(",nrow(X),")",sep="")
+        , X$week[1], FUN(X$returnTds))
+      
+      return(ret.sub)
+    })
+  ret = ret[,c(1,2,4,3,5:ncol(ret))]
+  colnames(ret) = colnames(proj)
+  return(ret)
+}
+
+FF.stat.mean = function(X) {
+  if(sum(!is.na(X))==0) { return(NA) }
+  return(mean(X,na.rm = TRUE))
+}
+
+FF.stat.median= function(X) {
+  if(sum(!is.na(X))==0) { return(NA) }
+  return(median(X,na.rm = TRUE))
+}
+
+#rbind(ret[1,],proj[proj$name_lookup=="AARONDOBSON",])
+
+# temp(cbs)
+# temp(espn)
+# temp(nfl)
+# temp(yahoo)
+# temp(ffn)
+# temp=function(data){
+#   print(data$source[1])
+# #   print(table(table(data$name_lookup)))
+#   print(table(table(data$name_lookup,data$team)))
+# #   data[duplicated(  data$name_lookup) | duplicated(data$name_lookup,fromLast = TRUE),]
+# }
+
 getAllProjectionsForAGivenStat = function(stat,pos,all = FALSE){
   ret = getAllProjectionsForAGivenWeekAndStat(1,stat,pos,all)
   for(i in 2:16){
