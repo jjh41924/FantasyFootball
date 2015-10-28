@@ -1,7 +1,7 @@
 getMYFFDir = function() { return( "C:/My_GIT_DIR") }
 setwd("C:/GIT_FF") 
 
-# source(paste(getMYFFDir(),"/Weekly Actuals/Actuals From Yahoo.R",sep=""))
+# source(paste(getMYFFDir(),"/Weekly_Actuals/Actuals From Yahoo.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/ESPN Weekly Projections.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/NFL Weekly Projections.R",sep=""))
 source(paste(getMYFFDir(),"/Weekly Forecast/Scripts/Yahoo Weekly Projections.R",sep=""))

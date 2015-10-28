@@ -177,12 +177,12 @@ setPFRActuals = function(years) {
 #   sdAverage <- data.frame(t(apply(sdVars, 2, function(x) wilcox.test(x, conf.int=TRUE, na.action="na.exclude")$estimate)))
 #   
   #Save file  
-  save(weeklyDataFinal, file = paste(getMYFFDir(),"/Weekly Actuals/PFR/Actuals_All_Weeks_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
-  write.csv(weeklyDataFinal, file=paste(getMYFFDir(),"/Weekly Actuals/PFR/Actuals_All_Weeks_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
+  save(weeklyDataFinal, file = paste(getMYFFDir(),"/Weekly_Actuals/PFR/Actuals_All_Weeks_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".RData", sep=""))
+  write.csv(weeklyDataFinal, file=paste(getMYFFDir(),"/Weekly_Actuals/PFR/Actuals_All_Weeks_Date_",strftime(Sys.time(), format = "%Y_%m_%d"),".csv", sep=""), row.names=FALSE)
 }
 
 getPFR_Actuals = function(){
-  ret = getProjections(paste(getMYFFDir(),"/Weekly Actuals/PFR/Actuals_All_Weeks_Date_",sep=""))
+  ret = getProjections(paste(getMYFFDir(),"/Weekly_Actuals/PFR/Actuals_All_Weeks_Date_",sep=""))
   ret$source = "PFR_Actual"
   ret$name_lookup = ret$name
   return(ret)
