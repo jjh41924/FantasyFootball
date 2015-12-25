@@ -33,6 +33,7 @@ FF.WAIVER.check.availability = function(team.map, p, week) {
     if(sum(p$Rank != ret$Rank) > 0) { stop("ERROR: Ranks dont match up") }
     else { ret = ret[,-which(colnames(ret) == "Rank")] }
   }
+#   browser()
   ret = merge(ret,p,by="Player.Name")
   ret = ret[order(ret$Rank),]
   cat("\n\n\n\n")
@@ -40,19 +41,34 @@ FF.WAIVER.check.availability = function(team.map, p, week) {
   cat("                             ********************** Waiver Wire *********************\n")
   cat("                             ********************************************************\n\n\n")
   cat("                                                 QB - RB - WR - TE\n\n")
-  print(ret[grepl("jim hamilton",tolower(ret$Team.Name)) | ret$Team.Name == "AVAILABLE",])
+  print(ret[grepl("jim hamil",tolower(ret$Team.Name)) | ret$Team.Name == "AVAILABLE",])
   cat("\n\n")
   cat("                                                      Kicker\n\n")
-  k = FF.WAIVER.check.player.names(getFantasyPros_Kicker_Rankings(week)$Player.Name,team.map)
-  print(k[grepl("jim hamilton",tolower(k$Team.Name)) | k$Team.Name == "AVAILABLE",])
+#   browser()
+  k.all = getFantasyPros_Kicker_Rankings(week)
+  k = FF.WAIVER.check.player.names(k.all$Player.Name,team.map)
+  if("Rank" %in% colnames(k) && "Rank" %in% colnames(k.all)) { 
+    if(sum(k$Player.Name != k.all$Player.Name) > 0) { stop("ERROR: Player.Name dont match up") }
+    else {
+      k = cbind(k[-5],ROS_Rank=k.all$"ROS:Rank")
+    }
+  }
+  print(k[grepl("jim hamil",tolower(k$Team.Name)) | k$Team.Name == "AVAILABLE",])
   cat("\n\n")
   cat("                                                        DST\n\n")
-  def = FF.WAIVER.check.def.names(getFantasyPros_DST_Rankings(week)$Player,team.map)
-  print(def[grepl("jim hamilton",tolower(def$Team.Name)) | def$Team.Name == "AVAILABLE",])
+  def.all = getFantasyPros_DST_Rankings(week)
+  def = FF.WAIVER.check.def.names(def.all$Player,team.map)
+  if("Rank" %in% colnames(def) && "Rank" %in% colnames(def.all)) { 
+    if(sum(def$DEF != def.all$Player) > 0) { stop("ERROR: Player.Name dont match up") }
+    else {
+      def = cbind(def[-5],ROS_Rank=def.all$"ROS:Rank")
+    }
+  }
+  print(def[grepl("jim hamil",tolower(def$Team.Name)) | def$Team.Name == "AVAILABLE",])
 }
 
 
-WEEK=8
+WEEK=16
 # ESPN
 FF.WAIVER.check.availability(scrape.espn.league.roster(),getFantasyPros_PPR_ROS_Rankings(WEEK), WEEK)
 # WORK

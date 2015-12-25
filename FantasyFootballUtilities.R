@@ -81,7 +81,8 @@ getAverageProjectionsForAGivenWeek = function(week,FUN=NA){
   proj = getAllProjectionsForAGivenWeek(week)
   table(table(proj$name_lookup,proj$source))
   table(proj$source)
-  all.proj[grepl(" ",all.proj$team),]
+  if(sum(grepl(" ", proj$team))>0) { stop("[getAverageProjectionsForAGivenWeek] Invalid Team Names"); }
+#   all.proj[grepl(" ",as.character(all.proj$team)),]
   ret = ddply(.data=proj,.(proj$name_lookup,proj$pos,proj$team),.fun = function(X) {  
       ret.sub = c(as.character(X$name[1])  #as.character(X$name_lookup[1]), as.character(X$pos[1]), as.character(X$team[1]), 
         , FUN(X$positionRank), FUN(X$overallRank), FUN(X$passAtt)
@@ -172,21 +173,21 @@ genericHeadings = function(d){
   return(d)
 }
 
-my.players = as.data.frame(matrix(ncol=2,nrow=13))
-colnames(my.players) = c("NAME","POS")
-my.players[1,] = c(toupper("TomBrady"),"QB")
-my.players[2,] = c(toupper("JeremyHill"),"RB")
-my.players[3,] = c(toupper("JonathanStewart"),"RB")
-my.players[4,] = c(toupper("AntonioBrown"),"WR")
-my.players[5,] = c(toupper("EmmanuelSanders"),"WR")
-my.players[6,] = c(toupper("GregOlsen"),"TE")
-my.players[7,] = c(toupper("MattForte"),"RB")
-my.players[8,] = c(toupper("JordyNelson"),"WR")
-my.players[9,] = c(toupper("RashadJennings"),"RB")
-my.players[10,] = c(toupper("FredJackson"),"RB")
-my.players[11,] = c(toupper("AlexSmith"),"QB")
-my.players[12,] = c(toupper("RuebenRandle"),"WR")
-my.players[13,] = c(toupper("ZachErtz"),"TE")
+# my.players = as.data.frame(matrix(ncol=2,nrow=13))
+# colnames(my.players) = c("NAME","POS")
+# my.players[1,] = c(toupper("TomBrady"),"QB")
+# my.players[2,] = c(toupper("JeremyHill"),"RB")
+# my.players[3,] = c(toupper("JonathanStewart"),"RB")
+# my.players[4,] = c(toupper("AntonioBrown"),"WR")
+# my.players[5,] = c(toupper("EmmanuelSanders"),"WR")
+# my.players[6,] = c(toupper("GregOlsen"),"TE")
+# my.players[7,] = c(toupper("MattForte"),"RB")
+# my.players[8,] = c(toupper("JordyNelson"),"WR")
+# my.players[9,] = c(toupper("RashadJennings"),"RB")
+# my.players[10,] = c(toupper("FredJackson"),"RB")
+# my.players[11,] = c(toupper("AlexSmith"),"QB")
+# my.players[12,] = c(toupper("RuebenRandle"),"WR")
+# my.players[13,] = c(toupper("ZachErtz"),"TE")
 
 # Tom Brady, NE QBRecent News  
 # Jeremy Hill, Cin RBBreaking News and Video  

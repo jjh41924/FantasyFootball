@@ -7,9 +7,10 @@ format.espn.team = function(t,team.name) {
   char.vec = unlist(strsplit(t[1,1],split=" "))
 #   team.name = paste(char.vec[1:(length(char.vec)-1)],collapse = " ")
   t = t[2:nrow(t),]
+  benched = t[t[,2]!="",1]=="Bench"
   player.names = format.espn.player.names(t[,2])
   player.team.names = format.espn.player.team.name(t[,2])
-  return(cbind(as.character(team.name),player.names,player.team.names))
+  return(cbind(as.character(team.name), player.names, player.team.names, benched))
 }
 
 format.espn.player.names = function(nam) {
@@ -49,7 +50,7 @@ format.espn.player.team.name = function(nam) {
   return(ret)
 }
 
-scrape.espn.league.roster = function(url="C:/My_GIT_DIR/League Information/ESPN Rosters/20151022.html") {
+scrape.espn.league.roster = function(url="C:/My_GIT_DIR/League Information/ESPN Rosters/20151210.html") {
   espn = readHTMLTable(url, stringsAsFactors = FALSE)
 #   browser()
   team.map = as.data.frame(matrix(NA,ncol=2,nrow=0));
@@ -59,7 +60,7 @@ scrape.espn.league.roster = function(url="C:/My_GIT_DIR/League Information/ESPN 
   }
   team.map[,1] = as.character(team.map[,1])
   team.map[,3] = as.character(team.map[,3])
-  colnames(team.map)=c("Team.Name","Player.Name","Player.Team.Name")
+  colnames(team.map)=c("Team.Name","Player.Name","Player.Team.Name","Benched")
   return(team.map)
 }
 

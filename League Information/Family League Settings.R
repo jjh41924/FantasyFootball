@@ -38,13 +38,21 @@ passAttMultiplier <- 0      #0 pts per passing attempt
 passCompMultiplier <- 0     #0 pts per passing completion
 # passIncompMultiplier <- 0     #0 pts per passing incompletion
 passYdsMultiplier <- (1/25) #1 pt per 25 passing yds
+passYdsThreshold_300 = 3
+passYdsThreshold_400 = 3
 passTdsMultiplier <- 6      #4 pts per passing td
 passIntMultiplier <- -2     #-3 pts per passing interception
+
 rushAttMultiplier <- 0      #0 pts per rushing attempt
 rushYdsMultiplier <- (1/10) #1 pt per 10 rushing yds
+rushYdsThreshold_100 = 3
+rushYdsThreshold_200 = 3
 rushTdsMultiplier <- 6      #6 pts per rushing touchdown
+
 recMultiplier <- 1          #0 pts per reception
 recYdsMultiplier <- (1/10)   #1 pt per 8 receiving yds
+recYdsThreshold_100 = 3
+recYdsThreshold_200 = 3
 recTdsMultiplier <- 6       #6 pts per receiving touchdown
 returnTdsMultiplier <- 6    #6 pts per return touchdown
 twoPtsMultiplier <- 2       #2 pts per 2-point conversion

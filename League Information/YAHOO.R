@@ -20,13 +20,12 @@ YAHOO.get.defence = function(d) {
 
 YAHOO.getTeam = function(yt,ptmap) {
   yt = yt[yt[,2]!="(Empty)",]
-  ret = as.data.frame(matrix(NA,nrow=14,ncol=6))
+  ret = as.data.frame(matrix(NA,nrow=nrow(yt),ncol=6))
   colnames(ret) = c("Team.Name","Player.Name","Player.Team.Name","temp","name_yahoo")
 #   ret$temp = sapply(yt[,2],function(X) { 
 #         return(str_trim(str_split(X, "\n")[[1]][2])) 
 #     })
   ret$temp = str_trim(sapply(str_split(yt[,2], "\n"), "[[", 2))
-# browser()
   ret$pos = str_trim(str_sub(ret$temp, start= regexpr("\\-[^\\-]*$", ret$temp)+2))
 #   ret$pos <- str_trim(str_sub(ret$temp, start= -2))
 #   ret = ret[!(ret$pos%in%c("DEF","K")),]
@@ -38,10 +37,12 @@ YAHOO.getTeam = function(yt,ptmap) {
 #   ret$Player.Name[ret$pos=="DEF"] = toupper(str_sub(ret$temp[ret$pos=="DEF"], start=1, end=str_locate(ret$temp[ret$pos=="DEF"]," ")[1]-1))
   ret$Player.Team.Name <- toupper(str_trim(str_sub(ret$temp, start=str_locate(ret$temp, "-")[,1]-4, end=str_locate(ret$temp, "-")[,1]-2)))
   ret$Team.Name = YAHOO.get.team.name(ret$Player.Name,ptmap)
-  return(ret[,c("Team.Name","Player.Name","Player.Team.Name")])
+  ret$Benched = yt[,1]=="BN"
+  return(ret[,c("Team.Name","Player.Name","Player.Team.Name","Benched")])
 }
 
 YAHOO.get.player.to.team = function(yp) {
+#   browser()
   yp = yp[yp[,1]!="(Empty)",]
   temp = str_trim(sapply(str_split(yp[,1], "\n"), "[[", 2))
   temp = str_trim(str_sub(temp, start=0, end=nchar(temp)-8))
@@ -83,3 +84,4 @@ scrape.yahoo.league.roster = function(week) {
   }
   return(teams)
 }
+
