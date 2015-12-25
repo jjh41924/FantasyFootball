@@ -5,7 +5,7 @@ from selenium.webdriver.common import action_chains, keys
 import time
 
 # Includes
-execfile("/home/ff/FantasyFootball/Python_Examples/GetCredentials.py")
+execfile("/home/ff/FantasyFootball/LINUX_ONLY/GetCredentials.py")
 
 def getWebDriverLoggedInToFanDuel() :
     driver = webdriver.Firefox()
@@ -14,7 +14,6 @@ def getWebDriverLoggedInToFanDuel() :
     # time.sleep(10)
 
     credentials =  getCredentials("FanDuel")
-    print credentials
     driver.find_element_by_xpath("//input[@type='email']").send_keys(credentials[0])
     driver.find_element_by_xpath("//input[@type='password']").clear()
     driver.find_element_by_xpath("//input[@type='password']").send_keys(credentials[1])

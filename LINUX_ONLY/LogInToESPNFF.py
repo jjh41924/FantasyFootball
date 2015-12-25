@@ -5,7 +5,7 @@ from selenium.webdriver.common import action_chains, keys
 import time
 
 # Includes
-execfile("/home/ff/FantasyFootball/Python_Examples/GetCredentials.py")
+execfile("/home/ff/FantasyFootball/LINUX_ONLY/GetCredentials.py")
 
 
 def getWebDriverLoggedInToESPN() :
