@@ -156,7 +156,7 @@ FF.MATCHUP.print.watch.list = function(watch.list,starters.only = FALSE, my.star
 FF.MATCHUP.print.watch.list.current.proj.actuals.summary = function(watch.list,starters.only) {
   if(starters.only) { watch.list = watch.list[watch.list$IsStarterBool,] }
   cats = data.frame(FF_Team=unique(watch.list$FF_Team));
-  summary                       = data.frame(matrix(NA,nrow=4,ncol=0)); rownames(summary) = cats[,1]
+  summary                       = data.frame(matrix(NA,nrow=nrow(cats),ncol=0)); rownames(summary) = cats[,1]
   summary$OVER.actuals          = tapply(watch.list$actuals[watch.list$Game.Time=="OVER"], watch.list$FF_Team[watch.list$Game.Time=="OVER"],function(X) { return(sum(X,na.rm = TRUE))})[as.character(cats[,1])]
   summary$OVER.proj             = tapply(watch.list$pts[watch.list$Game.Time=="OVER"], watch.list$FF_Team[watch.list$Game.Time=="OVER"],function(X) { return(sum(X,na.rm = TRUE))})[as.character(cats[,1])]
   summary$OVER.error            = summary$OVER.actuals - summary$OVER.proj  

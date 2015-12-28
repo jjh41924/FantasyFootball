@@ -95,8 +95,8 @@ setWeekActuals_actual = function(week){
   # dev.off()
   
   #Save file  
-  save(actuals, file = paste(getMYFFDir(),"/Weekly Actuals/Yahoo/Actuals_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d %H%M"),".RData", sep=""))
-  write.csv(actuals, file=paste(getMYFFDir(),"/Weekly Actuals/Yahoo/Actuals_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d %H%M"),".csv", sep=""), row.names=FALSE)
+  save(actuals, file = paste(getMYFFDir(),"/Weekly_Actuals/Yahoo/Actuals_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d %H%M"),".RData", sep=""))
+  write.csv(actuals, file=paste(getMYFFDir(),"/Weekly_Actuals/Yahoo/Actuals_Week_",week,"_Date_",strftime(Sys.time(), format = "%Y_%m_%d %H%M"),".csv", sep=""), row.names=FALSE)
   
   cat(paste("[Yahoo Actuals] DONE. week[",week,"]\n",sep=""))
 }
@@ -116,7 +116,7 @@ getActuals = function(prefix){
 }
 
 getWeekActuals_actual = function(week){
-  ret = getActuals(paste(getMYFFDir(),"/Weekly Actuals/Yahoo/Actuals_Week_",week,"_Date_",sep=""))
+  ret = getActuals(paste(getMYFFDir(),"/Weekly_Actuals/Yahoo/Actuals_Week_",week,"_Date_",sep=""))
   ret$source = "Yahoo"
   ret$week = week
   return(ret)

@@ -1,4 +1,4 @@
-source('C:/My_GIT_DIR/Weekly_Lineup/Weekly_Lineup Functions.R')
+source('C:/My_GIT_DIR/Weekly_Lineup/Weekly Lineup Functions.R')
 
 WEEK=16
 setWeeklyProjections(WEEK)
